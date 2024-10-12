@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     "visits",
     "commando",
     "profiles",
+    "subscriptions",
 ]
 
 MIDDLEWARE = [
