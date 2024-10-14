@@ -1,70 +1,65 @@
-# SaaS Django Project
+# SaaS Project
 
-This is an ongoing Software as a Service (SaaS) project built with Django. The project aims to provide a robust and scalable foundation for developing various SaaS applications.
+This is a Software as a Service (SaaS) project built with Django. The project is currently in progress and new features are being added regularly.
 
-## Project Structure
+## Features
 
-The project follows a typical Django structure with some custom apps and additional features:
+-   User Authentication: Allows users to register, log in, and manage their accounts.
+-   Subscription Management: Enables users to subscribe to different service tiers.
+-   Profile Management: Users can create and edit their profiles.
+-   Visit Tracking: Keeps track of user visits to the application.
+-   Customer Management: Allows for the management of customer information.
 
-- `visits`: App for tracking user visits
-- `commando`: Custom management commands
-- `auth`: Custom authentication app
-- `helpers`: Utility functions and classes
+## New Feature: Command Management
 
-## Getting Started
+We've recently added a new 'commando' app that provides custom management commands. This feature enhances the project's maintainability and allows for easier execution of routine tasks.
 
-### Prerequisites
+Key aspects of the Command Management feature:
 
-- Python 3.x
-- Docker (optional, for containerization)
+-   Custom Django management commands
+-   Includes a 'hello_world' command for testing and demonstration
+-   Includes a 'vendor_pull' command for updating vendor information
+
+## Project Status
+
+This project is still under active development. New features are being added, and existing features may be subject to change. We appreciate your patience and feedback as we continue to improve the application.
 
 ### Installation
 
 1. Clone the repository
 
-
 2. Create a virtual environment and activate it:
-python -m venv venv source venv/bin/activate # On Windows, use venv\Scripts\activate
-
+   python -m venv venv source venv/bin/activate # On Windows, use venv\Scripts\activate
 
 3. Install the required packages:
-pip install -r requirements.txt
-
+   pip install -r requirements.txt
 
 4. Run migrations:
-python src/manage.py migrate
-
+   python src/manage.py migrate
 
 5. Start the development server:
-python src/manage.py runserver
-
+   python src/manage.py runserver
 
 ## Docker Support
 
 This project includes a Dockerfile for containerization. To build and run the Docker container:
 
 1. Build the Docker image:
-docker build -t saas-django .
-
+   docker build -t saas-django .
 
 2. Run the container:
-docker run -p 8000:8000 saas-django
-
+   docker run -p 8000:8000 saas-django
 
 ## Custom Management Commands
 
 The project includes custom management commands located in `src/commando/management/commands/`:
 
-- `hello_world.py`: A simple command for testing
-- `vendor_pull.py`: Command for pulling vendor data (implementation details to be added)
+-   `hello_world.py`: A simple command for testing
+-   `vendor_pull.py`: Command for pulling vendor data (implementation details to be added)
 
 To run a custom command:
 
 python src/manage.py <command_name>
-
-
-
-
 
 ## Templates
 
