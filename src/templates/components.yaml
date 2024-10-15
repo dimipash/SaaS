@@ -1,0 +1,8 @@
+components:   
+    button:
+        template: '<button class="{{ classes }}">{{ text }}</button>'
+        context:
+            classes: "btn btn-primary"
+            text: "Click me"
+
+   

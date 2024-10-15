@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "widget_tweaks",
-    "slippers",
+    "slippers", 
     # my apps
     "visits",
     "commando",
@@ -195,5 +195,9 @@ STORAGES = {
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+SLIPPERS = {
+    'COMPONENTS_PATH': 'templates/components.yaml',
+}
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
