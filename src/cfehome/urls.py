@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from auth import views as auth_views
+from subscriptions import views as subscriptions_views
 from .views import (
     home_view,
     about_view,
@@ -12,8 +13,9 @@ from .views import (
 urlpatterns = [
     path("", home_view, name="home"),  # index page -> root page
     path("about/", about_view),
-    path("login/", auth_views.login_view),
-    path("register/", auth_views.register_view),
+    # path("login/", auth_views.login_view),
+    # path("register/", auth_views.register_view),
+    path("pricing/", subscriptions_views.subscription_price_view, name="pricing"),
     path("hello-world/", home_view),
     path("hello-world.html", home_view),
     path("accounts/", include("allauth.urls")),
