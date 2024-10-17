@@ -33,6 +33,8 @@ SECRET_KEY = config("DJANGO_SECRET_KEY", default=None)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DJANGO_DEBUG", cast=bool)
 
+BASE_URL = config("BASE_URL", default=None)
+
 ALLOWED_HOSTS = [".railway.app"]  # https://saas.prod.railway.app
 if DEBUG:
     ALLOWED_HOSTS += ["127.0.0.1", "localhost"]
