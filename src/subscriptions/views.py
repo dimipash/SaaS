@@ -16,6 +16,6 @@ def subscription_price_view(request):
         "subscriptions/pricing.html",
         {
             "monthly_qs": monthly_qs,
-            "year_qs": year_qs,
+            "yearly_qs": year_qs,
         },
     )
