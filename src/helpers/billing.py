@@ -75,8 +75,17 @@ def get_checkout_session(stripe_id, raw=True):
         return response
     return response.url
 
-def get_subscription(session_id, raw=True):
+def get_subscription(stripe_id, raw=True):
     response = stripe.Subscription.retrieve(stripe_id)
     if raw:
         return response
     return response.url
+
+def get_checkout_customer_plan(session_id):
+    checkout_response = get_checkout_session(session_id, raw=True)
+    customer_id = checkout_response.customer
+    sub_stripe_id = checkout_response.subscription
+    sub_response = get_subscription(sub_stripe_id, raw=True)
+    sub_plan = sub_response.plan
+    
+    return (customer_id, sub_plan.id)
