@@ -10,6 +10,17 @@ if "sk_test" in STRIPE_SECRET_KEY and not DJANGO_DEBUG:
 
 stripe.api_key = STRIPE_SECRET_KEY
 
+def serialize_subscription_data(subscription_response):
+    status = subscription_response.status
+
+    current_period_start = date_utils.timestamp_as_datetime(subscription_response.current_period_start)
+    current_period_end = date_utils.timestamp_as_datetime(subscription_response.current_period_end)
+
+    return {
+        "current_period_start": current_period_start,
+        "current_period_end": current_period_end,
+        "status": status,	
+    }
 
 def create_customer(name="", email="", metadata={}, raw=False):
     response = stripe.Customer.create(
@@ -80,7 +91,7 @@ def get_subscription(stripe_id, raw=True):
     response = stripe.Subscription.retrieve(stripe_id)
     if raw:
         return response
-    return response.url
+    return serialize_subscription_data(response)
 
 def cancel_subscription(stripe_id, reason="", feedback="other", raw=True):
     response = stripe.Subscription.cancel(
@@ -94,6 +105,8 @@ def cancel_subscription(stripe_id, reason="", feedback="other", raw=True):
         return response
     return response.url
 
+
+
 def get_checkout_customer_plan(session_id):
     checkout_response = get_checkout_session(session_id, raw=True)
     customer_id = checkout_response.customer
@@ -101,15 +114,12 @@ def get_checkout_customer_plan(session_id):
     sub_response = get_subscription(sub_stripe_id, raw=True)
 
     sub_plan = sub_response.plan
-
-    current_period_start = date_utils.timestamp_as_datetime(sub_response.current_period_start)
-    current_period_end = date_utils.timestamp_as_datetime(sub_response.current_period_end)
+    subscription_data = serialize_subscription_data(sub_response)    
 
     data = {
         "customer_id": customer_id,
         "plan_id": sub_plan.id,
-        "sub_stripe_id": sub_stripe_id,
-        "current_period_start": current_period_start,
-        "current_period_end": current_period_end,
+        "sub_stripe_id": sub_stripe_id,  
+        **subscription_data
     }
     return data
