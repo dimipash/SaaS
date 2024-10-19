@@ -89,15 +89,22 @@ def get_checkout_session(stripe_id, raw=True):
         return response
     return response.url
 
+def get_customer_active_subscriptions(customer_stripe_id):
+    response = stripe.Subscription.list(customer=customer_stripe_id, status="active")  
+    
+    return response
+    
+
 def get_subscription(stripe_id, raw=True):
     response = stripe.Subscription.retrieve(stripe_id)
     if raw:
         return response
+
     return serialize_subscription_data(response)
 
 def cancel_subscription(stripe_id, reason="", feedback="other", cancel_at_period_end=False, raw=True):
     if cancel_at_period_end:
-        response = stripe.Subscription.cancel(
+        response = stripe.Subscription.modify(
             stripe_id,
             cancel_at_period_end=cancel_at_period_end,
             cancellation_details={
