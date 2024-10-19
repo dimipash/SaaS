@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+
+{% block head_title %}Your Subscription - {{ block.super }}{% endblock head_title %}
+
+
+{% block content %}
+<h1 class="text-center">Your Subscription</h1>
+
+<form method="POST" acttion="">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-primary">Refresh</button>
+</form>
+
+<p>Plan: {{ subscription.plan_name }}</p>
+<p>Status: {{ subscription.status | title }}</p>
+<p>Membership duration: {{ subscription.original_period_start | timesince }}</p>
+<p>Current Period Start: {{ subscription.current_period_start | date:"d M, Y" }}</p>
+<p>Current Period End: {{ subscription.current_period_end | date:"d M, Y" }}</p>
+
+
+
+{% endblock content %}
+
