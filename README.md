@@ -1,80 +1,130 @@
-# SaaS Project
+# SaaS Django Project
 
-This is a Software as a Service (SaaS) project built with Django. The project is currently in progress and new features are being added regularly.
+This is a Software as a Service (SaaS) project built with Django. The project includes features such as user authentication, subscription management, and custom management commands.
 
 ## Features
 
--   User Authentication: Allows users to register, log in, and manage their accounts.
--   Subscription Management: Enables users to subscribe to different service tiers.
--   Profile Management: Users can create and edit their profiles.
--   Visit Tracking: Keeps track of user visits to the application.
--   Customer Management: Allows for the management of customer information.
+- User Authentication (using django-allauth)
+- Sending Emails with Gmail
+- Deploy to Railway
+- Integrate Neon Postgres
+- Django Groups and User Permissions
+- Subscription Management
+- Custom Management Commands
+- Profile Management
+- Visit Tracking
+- Stripe Integration for Payments
+- Pricing Page
+- User Subscription Management
+- Python Decouple for environment variables management
 
-## New Feature: Command Management
+## Tech Stack
 
-We've recently added a new 'commando' app that provides custom management commands. This feature enhances the project's maintainability and allows for easier execution of routine tasks.
+- Django 5.0
+- Python 3.12
+- PostgreSQL (Neon)
+- Stripe for payment processing
+- Docker for containerization
+- Railway for deployment
+- Whitenoise for static file serving
+- Tailwind CSS and Flowbite for styling
 
-Key aspects of the Command Management feature:
+## Installation
 
--   Custom Django management commands
--   Includes a 'hello_world' command for testing and demonstration
--   Includes a 'vendor_pull' command for updating vendor information
-
-## Project Status
-
-This project is still under active development. New features are being added, and existing features may be subject to change. We appreciate your patience and feedback as we continue to improve the application.
-
-### Installation
-
-1. Clone the repository
+1. Clone the repository:
+   ```
+   git clone https://github.com/dimipash/SaaS.git
+   cd SaaS
+   ```
 
 2. Create a virtual environment and activate it:
-   python -m venv venv source venv/bin/activate # On Windows, use venv\Scripts\activate
+   ```
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   ```
 
 3. Install the required packages:
+   ```
    pip install -r requirements.txt
+   ```
 
-4. Run migrations:
+4. Set up your environment variables:
+   Create a `.env` file in the root directory and add the following variables:
+   ```
+   DJANGO_DEBUG=True
+   SECRET_KEY=your_secret_key
+   DATABASE_URL=your_database_url
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   BASE_URL=http://localhost:8000
+   ```
+
+5. Run migrations:
+   ```
    python src/manage.py migrate
+   ```
 
-5. Start the development server:
+6. Create a superuser:
+   ```
+   python src/manage.py createsuperuser
+   ```
+
+7. Start the development server:
+   ```
    python src/manage.py runserver
+   ```
 
 ## Docker Support
 
-This project includes a Dockerfile for containerization. To build and run the Docker container:
+This project includes Docker support. To build and run the Docker container:
 
 1. Build the Docker image:
+   ```
    docker build -t saas-django .
+   ```
 
 2. Run the container:
+   ```
    docker run -p 8000:8000 saas-django
+   ```
 
 ## Custom Management Commands
 
 The project includes custom management commands located in `src/commando/management/commands/`:
 
--   `hello_world.py`: A simple command for testing
--   `vendor_pull.py`: Command for pulling vendor data (implementation details to be added)
+- `hello_world.py`: A simple command for testing
+- `vendor_pull.py`: Command for pulling vendor data
+- `sync_user_subs.py`: Command for syncing user subscriptions
 
 To run a custom command:
-
+```
 python src/manage.py <command_name>
+```
 
-## Templates
+## Subscription Management
 
-The project uses a base template structure with separate files for CSS and JavaScript includes. Main templates are located in `src/templates/`.
+The project includes a robust subscription management system. Key features include:
 
-## Deployment
+- Subscription plans and pricing
+- User subscription tracking
+- Subscription synchronization with Stripe
 
-This project is configured for deployment on Railway. The `railway.toml` file in the root directory contains the necessary configuration.
+To sync user subscriptions, use the `sync_user_subs` management command:
+```
+python src/manage.py sync_user_subs [options]
+```
+Options include:
+- `--day-start`: Start day for the sync range
+- `--day-end`: End day for the sync range
+- `--days-left`: Number of days left in the subscription
+- `--days-ago`: Number of days ago to start the sync
+- `--clear-dangling`: Clear dangling subscriptions
 
-## Contributing
+## Project Structure
 
-As this is an ongoing project, contributions are welcome. Please follow these steps:
+The project is organized into several Django apps:
 
-1. Fork the repository
-2. Create a new branch for your feature
-3. Commit your changes
-4. Push to your branch
-5. Create a new Pull Request
+- `subscriptions`: Handles subscription logic and models
+- `customers`: Manages customer data
+- `profiles`: User profile management
+- `visits`: Tracks user visits
+- `commando`: Houses custom management commands
