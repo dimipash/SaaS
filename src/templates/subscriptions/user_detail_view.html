@@ -1,26 +1,41 @@
-{% extends 'base.html' %}
-
+{% extends 'dashboard/base.html' %}
 
 {% block head_title %}Your Subscription - {{ block.super }}{% endblock head_title %}
 
-
 {% block content %}
-<h1 class="text-center">Your Subscription</h1>
+<div class="max-w-4xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">Your Subscription</h1>
 
-<form method="POST" acttion="">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-primary">Refresh</button>
-</form>
+    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6">
+        <div class="flex justify-between items-center mb-6">
+            <p class="text-xl font-semibold text-gray-900 dark:text-white">Plan: {{ subscription.plan_name }}</p>
+            <span class="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-full">{{ subscription.status | title }}</span>
+        </div>
 
-<a href="{{ subscription.get_cancel_url }}" class="btn btn-danger">Cancel Membership</a>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Membership duration</p>
+                <p class="text-lg font-medium text-gray-900 dark:text-white">{{ subscription.original_period_start | timesince }}</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Current Period</p>
+                <p class="text-lg font-medium text-gray-900 dark:text-white">
+                    {{ subscription.current_period_start | date:"d M, Y" }} - {{ subscription.current_period_end | date:"d M, Y" }}
+                </p>
+            </div>
+        </div>
 
-<p>Plan: {{ subscription.plan_name }}</p>
-<p>Status: {{ subscription.status | title }}</p>
-<p>Membership duration: {{ subscription.original_period_start | timesince }}</p>
-<p>Current Period Start: {{ subscription.current_period_start | date:"d M, Y" }}</p>
-<p>Current Period End: {{ subscription.current_period_end | date:"d M, Y" }}</p>
-
-
-
+        <div class="flex justify-between items-center">
+            <form method="POST" action="">
+                {% csrf_token %}
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                    Refresh
+                </button>
+            </form>
+            <a href="{{ subscription.get_cancel_url }}" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                Cancel Membership
+            </a>
+        </div>
+    </div>
+</div>
 {% endblock content %}
-

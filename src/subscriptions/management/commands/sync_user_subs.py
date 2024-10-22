@@ -23,7 +23,7 @@ class Command(BaseCommand):
             subs_utils.clear_dangling_subs()
         else:
             print("Refreshing active user subscriptions")
-            done = subs_utils.refresh_active_users_subscriptions(
+            done = subs_utils.refresh_active_user_subscriptions(
                 active_only=True,
                 days_left=days_left,
                 days_ago=days_ago,

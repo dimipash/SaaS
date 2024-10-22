@@ -64,6 +64,8 @@ INSTALLED_APPS = [
     "profiles",
     "subscriptions",
     "customers",
+    "landing",
+    "dashboard"
 ]
 
 MIDDLEWARE = [

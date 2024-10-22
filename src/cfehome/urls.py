@@ -13,7 +13,7 @@ from .views import (
 )
 
 urlpatterns = [
-    path("", landing_views.landing_page_view, name="home"),  # index page -> root page
+    path("", landing_views.landing_dashboard_page_view, name="home"),  # index page -> root page
     path("about/", about_view),    
     path("checkout/sub-price/<int:price_id>/", checkout_views.product_price_redirect_view, name="sub-price-checkout"),
     path("checkout/start/", checkout_views.checkout_redirect_view, name="stripe-checkout-start"),

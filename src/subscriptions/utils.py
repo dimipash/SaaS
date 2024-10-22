@@ -4,7 +4,7 @@ from customers.models import Customer
 from subscriptions.models import Subscription, UserSubscription, SubscriptionStatus
 
 
-def refresh_active_users_subscriptions(
+def refresh_active_user_subscriptions(
         user_ids=None, 
         active_only=True, 
         days_left=-1,
