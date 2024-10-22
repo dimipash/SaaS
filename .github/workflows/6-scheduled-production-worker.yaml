@@ -45,15 +45,15 @@ jobs:
       - name: Django Migrate Database        
         working-directory: ./src        
         run: |
-          py manage.py migrate
+          python manage.py migrate
       - name: Django Users Sync Stripe Subscriptions
         if: github.event.schedule != '0 4 1 * *'
         working-directory: ./src        
         run: |
-          py manage.py sync_user_subs --day-start 0 --day-end 1
+          python manage.py sync_user_subs --day-start 0 --day-end 1
       - name: Django Users Clear Dangling Stripe Subscriptions
         working-directory: ./src 
         if: github.event.schedule == '0 4 1 * *'
         run: |
-          py manage.py sync_user_subs --clear-dangling
+          python manage.py sync_user_subs --clear-dangling
       
