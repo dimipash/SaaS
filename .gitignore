@@ -1,6 +1,6 @@
 # ignore vendor static files
 src/staticfiles/vendors
-
+.idea/
 # ignore local cdn
 local-cdn/
 .DS_Store
