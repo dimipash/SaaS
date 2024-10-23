@@ -1,184 +1,179 @@
-# SaaS Django Project
+# SaaS Django Project 🚀
 
-This is a Software as a Service (SaaS) project built with Django. The project includes features such as user authentication, subscription management, and custom management commands.
+A foundational Software as a Service (SaaS) solution built with Django, featuring user authentication, subscription management, and custom commands.
 
-## Features
+## 🌟 Features
 
--   Python web development with Django
--   User Authentication (using django-allauth)
+### Core Functionality
+
+-   User Authentication (django-allauth)
 -   GitHub Login Integration
--   Sending Emails with Gmail
--   Deploy to Railway
--   Integrate Neon Postgres
--   Django Groups and User Permissions
--   Subscription Management
--   Custom Management Commands
 -   Profile Management
 -   Visit Tracking
--   Stripe Integration for Payments
--   Reoccurring payments via Products/Prices API
--   Pricing Page
--   User Subscription Management
--   Python Decouple for environment variables management
--   Django with Whitenoise for static file serving
--   Scheduled GitHub Actions Workflows for syncing production database with Stripe status (replacing Celery beat server)
--   Neon Branching for Postgres in GitHub Actions to leverage production data without touching it
--   Management commands for syncing user subscription status with correct permissions
--   Management commands for pulling vendor CSS/JS (Tailwind/Flowbite) for container-based builds
+-   Custom Management Commands
 
-## Tech Stack
+### Payment & Subscriptions
 
--   Django 5.0
--   Python 3.12
--   PostgreSQL (Neon)
--   Stripe for payment processing
--   Docker for containerization
--   Railway for deployment
--   Whitenoise for static file serving
--   Tailwind CSS and Flowbite for styling
+-   Stripe Integration
+-   Subscription Management
+-   Reoccurring Payments via Products/Prices API
+-   Dynamic Pricing Page
+-   User Subscription Dashboard
 
-## Installation
+### Infrastructure
 
-1. Clone the repository:
+-   Email Integration with Gmail
+-   Railway Deployment Support
+-   Neon PostgreSQL Integration
+-   Django Groups and Permissions
+-   Python Decouple for Environment Management
+-   Whitenoise for Static File Serving
 
-    ```
+### CI/CD & Automation
+
+-   GitHub Actions Workflows for Production Sync
+-   Neon Database Branching for Testing
+-   Automated Subscription Status Management
+-   Vendor Asset Management (Tailwind/Flowbite)
+
+## 🛠️ Tech Stack
+
+-   **Backend:** Django 5.0, Python 3.12
+-   **Database:** PostgreSQL (Neon)
+-   **Payment Processing:** Stripe
+-   **Containerization:** Docker
+-   **Deployment:** Railway
+-   **Static Files:** Whitenoise
+-   **Frontend Styling:** Tailwind CSS, Flowbite
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+-   Python 3.12+
+-   Docker (optional)
+-   PostgreSQL
+-   Stripe Account
+
+### Installation
+
+1.  **Clone the Repository**
+
+    ```bash
     git clone https://github.com/dimipash/SaaS.git
-    cd SaaS
+    cd src
     ```
 
-2. Create a virtual environment and activate it:
+2.  **Set Up Virtual Environment**
 
-    ```
+    ```bash
     python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    # On Unix/macOS
+    source venv/bin/activate
+    # On Windows
+    venv\Scripts\activate
     ```
 
-3. Install the required packages:
+3.  **Install Dependencies**
 
-    ```
+    ```bash
     pip install -r requirements.txt
     ```
 
-4. Set up your environment variables:
-   Create a `.env` file in the root directory and add the following variables:
+4.  **Configure Environment Variables**
+    Create a `.env` file in the root directory:
 
-    ```
-    DJANGO_DEBUG=True
-    SECRET_KEY=your_secret_key
-    DATABASE_URL=your_database_url
-    STRIPE_SECRET_KEY=your_stripe_secret_key
-    BASE_URL=http://localhost:8000
-    ```
+      ```env
+      BASE_URL=your_base_url_here
+      DJANGO_SECRET_KEY=your_django_secret_key_here
+      DJANGO_DEBUG=True
+      DATABASE_URL=your_database_url_here
+      EMAIL_HOST=your_email_host_here
+      EMAIL_PORT=your_email_port_here
+      EMAIL_USE_TLS=True
+      EMAIL_USE_SSL=False
+      EMAIL_HOST_USER=your_email_here
+      EMAIL_HOST_PASSWORD=your_email_password_here
+      STRIPE_SECRET_KEY=your_stripe_secret_key_here
+      ADMIN_USER_EMAIL=your_admin_email_here
+      ```
 
-5. Run migrations:
+5.  **Database Setup**
 
-    ```
+    ```bash
     python src/manage.py migrate
-    ```
-
-6. Create a superuser:
-
-    ```
     python src/manage.py createsuperuser
     ```
 
-7. Start the development server:
-    ```
+6.  **Start Development Server**
+    ```bash
     python src/manage.py runserver
     ```
 
-## Docker Support
+## 🛠️ Custom Management Commands
 
-This project includes Docker support. To build and run the Docker container:
+Located in `src/commando/management/commands/`:
 
-1. Build the Docker image:
+-   `hello_world.py` - Test command
+-   `vendor_pull.py` - Vendor data management
+-   `sync_user_subs.py` - Subscription sync
 
-    ```
-    docker build -t saas-django .
-    ```
+Usage:
 
-2. Run the container:
-    ```
-    docker run -p 8000:8000 saas-django
-    ```
-
-## Custom Management Commands
-
-The project includes custom management commands located in `src/commando/management/commands/`:
-
--   `hello_world.py`: A simple command for testing
--   `vendor_pull.py`: Command for pulling vendor data
--   `sync_user_subs.py`: Command for syncing user subscriptions
-
-To run a custom command:
-
-```
+```bash
 python src/manage.py <command_name>
 ```
 
-## Subscription Management
+### Subscription Sync Options
 
-The project includes a robust subscription management system. Key features include:
-
--   Subscription plans and pricing
--   User subscription tracking
--   Subscription synchronization with Stripe
-
-To sync user subscriptions, use the `sync_user_subs` management command:
-
-```
+```bash
 python src/manage.py sync_user_subs [options]
+
+Options:
+  --day-start     Start day for sync range
+  --day-end       End day for sync range
+  --days-left     Subscription days remaining
+  --days-ago      Days ago to start sync
+  --clear-dangling Clear invalid subscriptions
 ```
 
-Options include:
+## 📁 Project Structure
 
--   `--day-start`: Start day for the sync range
--   `--day-end`: End day for the sync range
--   `--days-left`: Number of days left in the subscription
--   `--days-ago`: Number of days ago to start the sync
--   `--clear-dangling`: Clear dangling subscriptions
+```
+src/
+├── subscriptions/  # Subscription management
+├── customers/      # Customer data
+├── profiles/       # User profiles
+├── visits/         # Visit tracking
+└── commando/       # Custom commands
+```
 
-## Project Structure
-
-The project is organized into several Django apps:
-
--   `subscriptions`: Handles subscription logic and models
--   `customers`: Manages customer data
--   `profiles`: User profile management
--   `visits`: Tracks user visits
--   `commando`: Houses custom management commands
-
-## GitHub Actions Workflows and Neon Branching
-
-This project leverages GitHub Actions for automated workflows and Neon Branching for efficient database management in CI/CD pipelines.
+## 🔄 CI/CD Pipeline
 
 ### GitHub Actions Workflows
 
-1. **Scheduled Production Sync**:
+1. **Production Database Sync**
 
-    - Automatically syncs the production database with Stripe subscription status.
-    - Replaces the need for a dedicated Celery beat server.
-    - Runs on a predefined schedule to ensure data consistency.
+    - Automated Stripe subscription status sync
+    - Scheduled execution
+    - Replaces Celery beat server
 
-2. **Django Tests with Neon Branch**:
-    - Creates a new branch of the production database for testing.
-    - Runs Django tests against this isolated database branch.
-    - Ensures test integrity without affecting production data.
+2. **Testing Pipeline**
+    - Neon database branching
+    - Isolated test environment
+    - Production data structure
 
-### Neon Branching
+### Neon Database Branching
 
-Neon Branching is utilized to create instant, isolated copies of the production database for testing and development purposes.
+Benefits:
 
--   **Benefits**:
+-   Instant database cloning
+-   Isolated testing environments
+-   Production-like data
+-   Zero risk to production
 
-    -   Zero-copy cloning: Branches are created instantly without copying data.
-    -   Isolated testing: Each test run uses a fresh, isolated database branch.
-    -   Production-like data: Tests run against a structure identical to production.
-    -   Data safety: Production data remains untouched during testing.
+Implementation:
 
--   **Usage in CI/CD**:
-    1. A new branch is created before running tests.
-    2. Tests are executed against this branch.
-    3. The branch is deleted after tests complete.
-
-This approach ensures that our CI/CD pipeline can run comprehensive tests with production-like data without any risk to the actual production database.
+1. Create test database branch
+2. Execute test suite
+3. Clean up resources
