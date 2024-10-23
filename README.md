@@ -48,11 +48,13 @@ A foundational Software as a Service (SaaS) solution built with Django, featurin
 
 ## 🚀 Getting Started
 
+You can view the deployed project on Railway at the following link: [Live Version](https://saas-dlp.up.railway.app/)
+
 ### Prerequisites
 
 -   Python 3.12+
 -   Docker (optional)
--   PostgreSQL
+-   PostgreSQL (Neon)
 -   Stripe Account
 
 ### Installation
