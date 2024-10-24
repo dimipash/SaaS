@@ -3,38 +3,69 @@
 {% block head_title %}Your Subscription - {{ block.super }}{% endblock head_title %}
 
 {% block content %}
-<div class="max-w-4xl mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">Your Subscription</h1>
-
-    <div class="bg-white dark:bg-gray-800 shadow-md rounded-lg p-6 mb-6">
-        <div class="flex justify-between items-center mb-6">
-            <p class="text-xl font-semibold text-gray-900 dark:text-white">Plan: {{ subscription.plan_name }}</p>
+<div class="p-4">
+    <!-- Subscription Header -->
+    <div class="mb-8 bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="bg-blue-600 text-white rounded-full w-16 h-16 flex items-center justify-center text-2xl">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Your Subscription</h1>
+                    <p class="text-gray-500 dark:text-gray-400">Manage your plan and billing</p>
+                </div>
+            </div>
             <span class="px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded-full">{{ subscription.status | title }}</span>
         </div>
+    </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Membership duration</p>
-                <p class="text-lg font-medium text-gray-900 dark:text-white">{{ subscription.original_period_start | timesince }}</p>
-            </div>
-            <div>
-                <p class="text-sm text-gray-600 dark:text-gray-400">Current Period</p>
-                <p class="text-lg font-medium text-gray-900 dark:text-white">
-                    {{ subscription.current_period_start | date:"d M, Y" }} - {{ subscription.current_period_end | date:"d M, Y" }}
-                </p>
+    <!-- Subscription Details -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Plan Details</h2>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Current Plan</p>
+                    <p class="text-lg font-medium text-gray-900 dark:text-white">{{ subscription.plan_name }}</p>
+                </div>
+                <div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Membership Duration</p>
+                    <p class="text-lg font-medium text-gray-900 dark:text-white">{{ subscription.original_period_start | timesince }}</p>
+                </div>
             </div>
         </div>
 
-        <div class="flex justify-between items-center">
-            <form method="POST" action="">
-                {% csrf_token %}
-                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
-                    Refresh
-                </button>
-            </form>
-            <a href="{{ subscription.get_cancel_url }}" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
-                Cancel Membership
-            </a>
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+            <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Billing Period</h2>
+            <div class="space-y-4">
+                <div>
+                    <p class="text-sm text-gray-600 dark:text-gray-400">Current Period</p>
+                    <p class="text-lg font-medium text-gray-900 dark:text-white">
+                        {{ subscription.current_period_start | date:"d M, Y" }} - {{ subscription.current_period_end | date:"d M, Y" }}
+                    </p>
+                </div>
+                <div class="flex justify-between items-center pt-4">
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"></path>
+                            </svg>
+                            Refresh
+                        </button>
+                    </form>
+                    <a href="{{ subscription.get_cancel_url }}" class="inline-flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 transition duration-150 ease-in-out">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                        Cancel Membership
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
