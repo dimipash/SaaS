@@ -1,5 +1,6 @@
 from decouple import config
 from pathlib import Path
+from allauth.account.app_settings import LoginMethod
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -144,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 # Django Allauth Config
 LOGIN_REDIRECT_URL = "/"
-ACCOUNT_LOGIN_METHODS = "email"
+ACCOUNT_LOGIN_METHODS = LoginMethod.EMAIL
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SaaS] "
 ACCOUNT_SIGNUP_FIELDS = ['username', 'email']
