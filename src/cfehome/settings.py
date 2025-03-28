@@ -1,4 +1,4 @@
-from decouple import config
+from decouple import config, Csv
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -147,7 +147,7 @@ LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGIN_METHODS = {"username_email"}
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SaaS] "
-ACCOUNT_SIGNUP_FIELDS = [True]
+ACCOUNT_SIGNUP_FIELDS = config("ACCOUNT_SIGNUP_FIELDS", default=[], cast=Csv())
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
