@@ -1,4 +1,4 @@
-from decouple import config, Csv
+from decouple import config
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -144,10 +144,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 # Django Allauth Config
 LOGIN_REDIRECT_URL = "/"
-ACCOUNT_LOGIN_METHODS = {"username_email"}
+ACCOUNT_LOGIN_METHODS = "username_email"
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SaaS] "
-ACCOUNT_SIGNUP_FIELDS = config("ACCOUNT_SIGNUP_FIELDS", default=[], cast=Csv())
+ACCOUNT_SIGNUP_FIELDS = []
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
