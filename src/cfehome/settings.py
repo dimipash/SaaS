@@ -57,7 +57,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.github",
     "widget_tweaks",
-    "slippers", 
+    "slippers",
     # my apps
     "visits",
     "commando",
@@ -65,7 +65,7 @@ INSTALLED_APPS = [
     "subscriptions",
     "customers",
     "landing",
-    "dashboard"
+    "dashboard",
 ]
 
 MIDDLEWARE = [
@@ -147,8 +147,8 @@ LOGIN_REDIRECT_URL = "/"
 ACCOUNT_LOGIN_METHODS = ["username", "email"]
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SaaS] "
-ACCOUNT_SIGNUP_FIELDS = ["email"] 
-ACCOUNT_USERNAME_REQUIRED = False  
+ACCOUNT_SIGNUP_FIELDS = ["email*"]
+
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
@@ -202,7 +202,7 @@ STORAGES = {
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 SLIPPERS = {
-    'COMPONENTS_PATH': 'templates/components.yaml',
+    "COMPONENTS_PATH": "templates/components.yaml",
 }
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
