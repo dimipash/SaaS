@@ -144,10 +144,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 # Django Allauth Config
 LOGIN_REDIRECT_URL = "/"
-ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+ACCOUNT_LOGIN_METHODS = ["username", "email"]
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_SUBJECT_PREFIX = "[SaaS] "
-ACCOUNT_SIGNUP_FIELDS = ["email"]
+ACCOUNT_SIGNUP_FIELDS = ["email"] 
+ACCOUNT_USERNAME_REQUIRED = False  
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
